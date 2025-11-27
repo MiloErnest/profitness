@@ -33,7 +33,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             <!-- Pesa -->
             <div class="bg-white border-2 border-red-100 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-                <img src="{{ asset('imagenes/gym1.jpg') }}" alt="Área de pesas" class="w-full h-56 object-cover rounded-t-xl">
+                <img src="{{ asset('imagenes/AreaDePesas.jpg') }}" alt="Área de pesas" class="w-full h-56 object-cover rounded-t-xl">
                 <div class="p-6 text-center">
                     <h3 class="text-xl font-bold text-red-700 mb-2">Área de Pesas</h3>
                     <p class="text-gray-600">Equipos de fuerza profesionales, diseñados para llevar tu rendimiento al máximo nivel.</p>
@@ -42,7 +42,7 @@
 
             <!-- Cardio -->
             <div class="bg-white border-2 border-red-100 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-                <img src="{{ asset('imagenes/gym2.jpg') }}" alt="Zona de Cardio" class="w-full h-56 object-cover rounded-t-xl">
+                <img src="{{ asset('imagenes/ZonaDeCardio.jpg') }}" alt="Zona de Cardio" class="w-full h-56 object-cover rounded-t-xl">
                 <div class="p-6 text-center">
                     <h3 class="text-xl font-bold text-red-700 mb-2">Zona de Cardio</h3>
                     <p class="text-gray-600">Caminadoras, bicicletas, elípticas y más para mejorar tu resistencia con la mejor tecnología.</p>
@@ -51,7 +51,7 @@
 
             <!-- Clases -->
             <div class="bg-white border-2 border-red-100 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-2 transition duration-300">
-                <img src="{{ asset('imagenes/gym3.jpg') }}" alt="Clases Grupales" class="w-full h-56 object-cover rounded-t-xl">
+                <img src="{{ asset('imagenes/clases-grupales-phisique.jpg') }}" alt="Clases Grupales" class="w-full h-56 object-cover rounded-t-xl">
                 <div class="p-6 text-center">
                     <h3 class="text-xl font-bold text-red-700 mb-2">Clases Grupales</h3>
                     <p class="text-gray-600">Entrena en equipo, motívate y diviértete con nuestros programas dinámicos y variados.</p>
