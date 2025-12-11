@@ -31,9 +31,14 @@
                         <li>Ambiente motivador</li>
                         <li>Entrenadores disponibles en sala</li>
                     </ul>
-                    <a href="{{ route('contact') }}" class="mt-auto inline-block bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition duration-300">
-                        Inscríbete ya
-                    </a>
+                    <form action="{{ route('cart.add') }}" method="POST" class="mt-auto w-full">
+                        @csrf
+                        <input type="hidden" name="type" value="plan">
+                        <input type="hidden" name="id" value="{{ $plan->id }}">
+                        <button type="submit" class="w-full bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition duration-300">
+                            Agregar al carrito
+                        </button>
+                    </form>
                 </div>
             @endforeach
         </div>

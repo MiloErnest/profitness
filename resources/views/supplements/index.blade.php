@@ -65,10 +65,14 @@
                                     </span>
                                 @endif
                             </div>
-                            <button onclick="abrirModalPago('{{ $supplement->name }}', '${{ number_format($supplement->price, 0, ',', '.') }}')" 
-                                    class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition">
-                                Comprar Ahora
-                            </button>
+                            <form action="{{ route('cart.add') }}" method="POST" class="mt-2">
+                                @csrf
+                                <input type="hidden" name="type" value="supplement">
+                                <input type="hidden" name="id" value="{{ $supplement->id }}">
+                                <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition">
+                                    Agregar al carrito
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @empty
@@ -108,10 +112,14 @@
                                         </span>
                                     @endif
                                 </div>
-                                <button onclick="abrirModalPago('{{ $supplement->name }}', '${{ number_format($supplement->price, 0, ',', '.') }}')" 
-                                        class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition">
-                                    Comprar Ahora
-                                </button>
+                                <form action="{{ route('cart.add') }}" method="POST" class="mt-2">
+                                    @csrf
+                                    <input type="hidden" name="type" value="supplement">
+                                    <input type="hidden" name="id" value="{{ $supplement->id }}">
+                                    <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition">
+                                        Agregar al carrito
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     @endforeach

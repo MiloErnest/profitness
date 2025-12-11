@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\CartController;
 
 // Página principal
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -120,6 +121,15 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'user'])->group(functi
     Route::get('/dashboard', [App\Http\Controllers\UserDashboardController::class, 'index'])->name('dashboard');
     Route::post('/attendance', [App\Http\Controllers\UserDashboardController::class, 'markAttendance'])->name('attendance');
 });
+
+// Carrito y Checkout (público)
+Route::get('/carrito', [CartController::class, 'index'])->name('cart.index');
+Route::post('/carrito/agregar', [CartController::class, 'add'])->name('cart.add');
+Route::post('/carrito/actualizar', [CartController::class, 'update'])->name('cart.update');
+Route::post('/carrito/eliminar', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/carrito/vaciar', [CartController::class, 'clear'])->name('cart.clear');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::post('/checkout', [CartController::class, 'processCheckout'])->name('cart.processCheckout');
 
 // Páginas generales
 Route::get('/quienes-somos', [AboutController::class, 'index'])->name('about');

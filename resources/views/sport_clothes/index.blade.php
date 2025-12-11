@@ -202,9 +202,9 @@
                         <p class="text-red-600 font-semibold mb-3">${precioFormateado}</p>
                         <p class="text-sm text-gray-600 mb-4">${descripcion.substring(0, 80)}${descripcion.length > 80 ? '...' : ''}</p>
                         ${item.stock > 0 
-                            ? `<button onclick="abrirModalPago('${nombreEscapado}', '${precioFormateado}')" 
+                            ? `<button onclick="agregarRopaAlCarrito(${item.id})" 
                                       class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg font-semibold hover:from-red-700 hover:to-red-800 transition">
-                                  Comprar Ahora
+                                  Agregar al carrito
                               </button>`
                             : `<button disabled 
                                       class="w-full bg-gray-400 text-white px-4 py-2 rounded-lg font-semibold cursor-not-allowed">
@@ -228,6 +228,33 @@
         if (btnActivo) {
             btnActivo.classList.remove('border-transparent', 'text-red-600');
             btnActivo.classList.add('border-red-200', 'bg-white', 'text-red-700', 'shadow-sm', 'active-sub');
+        }
+    }
+
+    async function agregarRopaAlCarrito(id) {
+        try {
+            const response = await fetch(`{{ route('cart.add') }}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'sport_cloth',
+                    id: id,
+                    qty: 1,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al agregar al carrito');
+            }
+
+            // Opcional: podrías mostrar un mensaje o actualizar un contador de carrito
+            alert('Producto agregado al carrito');
+        } catch (e) {
+            alert('No se pudo agregar al carrito.');
         }
     }
 

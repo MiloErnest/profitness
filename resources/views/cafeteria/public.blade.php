@@ -60,25 +60,38 @@
                             <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ $item->description }}</p>
                         @endif
 
-                        <!-- Precio y disponibilidad -->
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <span class="text-3xl font-bold text-red-600">
-                                    ${{ number_format($item->price, 0, ',', '.') }}
-                                </span>
-                            </div>
-                            <div class="text-right">
-                                @if($item->stock > 0)
-                                    <span class="text-green-600 font-semibold flex items-center">
-                                        <i class="fas fa-check-circle mr-1"></i>Disponible
+                        <!-- Precio, disponibilidad y carrito -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-3xl font-bold text-red-600">
+                                        ${{ number_format($item->price, 0, ',', '.') }}
                                     </span>
-                                    <span class="text-gray-500 text-sm">Stock: {{ $item->stock }}</span>
-                                @else
-                                    <span class="text-red-600 font-semibold">
-                                        <i class="fas fa-times-circle mr-1"></i>Agotado
-                                    </span>
-                                @endif
+                                </div>
+                                <div class="text-right">
+                                    @if($item->stock > 0)
+                                        <span class="text-green-600 font-semibold flex items-center">
+                                            <i class="fas fa-check-circle mr-1"></i>Disponible
+                                        </span>
+                                        <span class="text-gray-500 text-sm">Stock: {{ $item->stock }}</span>
+                                    @else
+                                        <span class="text-red-600 font-semibold">
+                                            <i class="fas fa-times-circle mr-1"></i>Agotado
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
+
+                            @if($item->stock > 0)
+                                <form action="{{ route('cart.add') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="type" value="cafeteria">
+                                    <input type="hidden" name="id" value="{{ $item->id }}">
+                                    <button type="submit" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition">
+                                        Agregar al carrito
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
