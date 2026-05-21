@@ -59,6 +59,8 @@
                 </div>
 
                 <div>
+
+   
                     <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Fecha de inicio</label>
                     <input type="date" id="start_date" name="start_date" value="{{ old('start_date', date('Y-m-d')) }}" class="w-full border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500" required>
                     @error('start_date')
