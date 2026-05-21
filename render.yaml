@@ -1,0 +1,60 @@
+# Blueprint Render — pro.fitness (Laravel monolítico)
+# Dashboard: New > Blueprint > conectar repo > aplicar este archivo.
+# Vercel: no aplica (sin frontend separado); ver informe de despliegue en la respuesta del agente.
+
+databases:
+  - name: pro-fitness-db
+    databaseName: profitness
+    user: profitness
+    plan: free
+
+services:
+  - type: web
+    name: pro-fitness-web
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /up
+    autoDeploy: true
+    preDeployCommand: php artisan migrate --force
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: pro-fitness-db
+          property: connectionString
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: RUN_MIGRATIONS
+        value: "false"
+      # Generar en Render Shell: php artisan key:generate --show
+      - key: APP_KEY
+        generateValue: true
+      # Actualizar en el dashboard con la URL pública tras el primer deploy
+      - key: APP_URL
+        value: https://pro-fitness-web.onrender.com
+
+  # Opcional: descomentar si usas colas (QUEUE_CONNECTION=database)
+  # - type: worker
+  #   name: pro-fitness-worker
+  #   runtime: docker
+  #   dockerfilePath: ./Dockerfile
+  #   dockerCommand: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+  #   plan: free
+  #   envVars:
+  #     - fromGroup: pro-fitness-web
