@@ -31,6 +31,8 @@ services:
         fromDatabase:
           name: pro-fitness-db
           property: connectionString
+      - key: DB_SSLMODE
+        value: require
       - key: SESSION_DRIVER
         value: database
       - key: CACHE_STORE

@@ -16,5 +16,3 @@ bootstrap/cache/*
 .phpunit.result.cache
 tests
 *.md
-Dockerfile
-.dockerignore
