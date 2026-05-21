@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Administrador',
                 'email' => 'admin@fitness.com',
                 'password' => bcrypt('12345678'),
+                'role' => 'admin',
             ]);
         }
 
