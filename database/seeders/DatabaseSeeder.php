@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // --- Verificar si el admin ya existe ---
         if (!User::where('email', 'admin@fitness.com')->exists()) {
-            User::factory()->create([
+            User::create([
                 'name' => 'Administrador',
                 'email' => 'admin@fitness.com',
                 'password' => bcrypt('12345678'),
