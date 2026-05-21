@@ -39,24 +39,6 @@ exit(0);
     exit 1
 }
 
-stop_background_serve() {
-    if [ -z "${SERVE_PID:-}" ]; then
-        return 0
-    fi
-    if kill -0 "$SERVE_PID" 2>/dev/null; then
-        echo "Deteniendo servidor temporal (PID ${SERVE_PID})..."
-        kill -TERM "$SERVE_PID" 2>/dev/null || true
-        attempt=0
-        while kill -0 "$SERVE_PID" 2>/dev/null && [ "$attempt" -lt 50 ]; do
-            sleep 0.2
-            attempt=$((attempt + 1))
-        done
-        kill -9 "$SERVE_PID" 2>/dev/null || true
-        wait "$SERVE_PID" 2>/dev/null || true
-    fi
-    SERVE_PID=
-}
-
 apply_pg_ssl_env() {
     case "${DB_CONNECTION:-}" in
         pgsql) ;;
@@ -120,18 +102,12 @@ wait_for_db() {
     done
 
     echo "ERROR: no se pudo conectar a la base de datos tras $((max_attempts * sleep_seconds))s."
-    stop_background_serve
     exit 1
 }
 
 PORT="${PORT:-8000}"
 
 validate_app_key
-
-echo "Iniciando servidor HTTP en 0.0.0.0:${PORT} (Render port scan)..."
-php artisan serve --host=0.0.0.0 --port="$PORT" &
-SERVE_PID=$!
-
 wait_for_db
 
 php artisan config:cache
@@ -143,7 +119,5 @@ fi
 php artisan route:cache
 php artisan view:cache
 
-echo "Iniciando servidor con configuración en caché..."
-stop_background_serve
-
+echo "Iniciando servidor HTTP en 0.0.0.0:${PORT}..."
 exec php artisan serve --host=0.0.0.0 --port="$PORT"
