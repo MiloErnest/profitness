@@ -31,12 +31,13 @@ services:
         fromDatabase:
           name: pro-fitness-db
           property: connectionString
+      # Red privada Render: connectionString interno; require suele fallar sin TLS
       - key: DB_SSLMODE
-        value: require
+        value: prefer
       - key: DB_WAIT_MAX_ATTEMPTS
-        value: "60"
+        value: "45"
       - key: DB_WAIT_SLEEP_SECONDS
-        value: "3"
+        value: "2"
       - key: SESSION_DRIVER
         value: database
       - key: CACHE_STORE

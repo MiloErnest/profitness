@@ -95,6 +95,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
+            // Render inyecta DB_URL (connectionString privado); sslmode se aplica aunque haya URL
             'sslmode' => env('DB_SSLMODE', 'prefer'),
         ],
 
