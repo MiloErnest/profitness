@@ -33,6 +33,10 @@ services:
           property: connectionString
       - key: DB_SSLMODE
         value: require
+      - key: DB_WAIT_MAX_ATTEMPTS
+        value: "60"
+      - key: DB_WAIT_SLEEP_SECONDS
+        value: "3"
       - key: SESSION_DRIVER
         value: database
       - key: CACHE_STORE

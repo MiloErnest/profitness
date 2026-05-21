@@ -139,4 +139,5 @@ Route::post('/contacto', [ContactController::class, 'store'])->name('contact.sto
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Compatibilidad con redirecciones de auth (/home); la ruta nombrada "home" es "/".
+Route::redirect('/home', '/');

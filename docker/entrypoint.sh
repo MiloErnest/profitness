@@ -5,7 +5,6 @@ mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
 chmod -R a+rwX storage bootstrap/cache 2>/dev/null || true
 
 php artisan storage:link --force 2>/dev/null || true
-php artisan config:cache
 
 wait_for_db() {
     case "${RUN_MIGRATIONS:-true}" in
@@ -19,24 +18,32 @@ wait_for_db() {
             ;;
     esac
 
-    echo "Esperando base de datos..."
+    if [ "${DB_SSLMODE:-}" = "require" ] || [ "${DB_SSLMODE:-}" = "verify-full" ]; then
+        export PGSSLMODE="${DB_SSLMODE}"
+    fi
+
+    max_attempts="${DB_WAIT_MAX_ATTEMPTS:-45}"
+    sleep_seconds="${DB_WAIT_SLEEP_SECONDS:-2}"
+
+    echo "Esperando base de datos (hasta $((max_attempts * sleep_seconds))s)..."
     attempt=1
-    max_attempts=30
     while [ "$attempt" -le "$max_attempts" ]; do
         if php artisan db:show --no-interaction > /dev/null 2>&1; then
             echo "Base de datos lista."
             return 0
         fi
-        echo "Intento ${attempt}/${max_attempts}: reintento en 2s..."
-        sleep 2
+        echo "Intento ${attempt}/${max_attempts}: reintento en ${sleep_seconds}s..."
+        sleep "$sleep_seconds"
         attempt=$((attempt + 1))
     done
 
-    echo "ERROR: no se pudo conectar a la base de datos tras 60s."
+    echo "ERROR: no se pudo conectar a la base de datos tras $((max_attempts * sleep_seconds))s."
     exit 1
 }
 
 wait_for_db
+
+php artisan config:cache
 
 if [ -n "${RUN_MIGRATIONS:-true}" ] && [ "${RUN_MIGRATIONS}" != "false" ]; then
     php artisan migrate --force
