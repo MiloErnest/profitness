@@ -9,16 +9,37 @@ COPY vite.config.js ./
 COPY resources ./resources
 RUN npm run build
 
-FROM composer:2 AS vendor
+FROM php:8.2-cli-alpine AS vendor
+RUN apk add --no-cache \
+        postgresql-dev \
+        libzip-dev \
+        oniguruma-dev \
+    && docker-php-ext-install \
+        pdo_pgsql \
+        zip \
+        mbstring \
+        bcmath \
+        opcache
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 WORKDIR /app
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --ignore-platform-reqs
+RUN composer install --no-dev --no-scripts --no-autoloader
 COPY . .
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 FROM php:8.2-cli-alpine AS runtime
-RUN apk add --no-cache postgresql-dev libzip-dev \
-    && docker-php-ext-install pdo_pgsql zip opcache
+RUN apk add --no-cache \
+        postgresql-dev \
+        libzip-dev \
+        oniguruma-dev \
+    && docker-php-ext-install \
+        pdo_pgsql \
+        zip \
+        mbstring \
+        bcmath \
+        opcache
 
 WORKDIR /var/www/html
 COPY --from=vendor /app /var/www/html
