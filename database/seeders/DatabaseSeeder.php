@@ -8,6 +8,9 @@ use App\Models\Service;
 use App\Models\Supplement;
 use App\Models\SportClothes;
 use App\Models\CafeteriaSale;
+use App\Models\Inventory;
+use App\Models\SupplementMonthlyReport;
+use App\Models\SportClothesMonthlyReport;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,61 +30,18 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // Catálogos vacíos: suplementos y ropa solo desde panel admin.
+        SupplementMonthlyReport::query()->delete();
+        SportClothesMonthlyReport::query()->delete();
+        Inventory::whereIn('product_type', ['supplement', 'clothing'])->delete();
+        Supplement::query()->delete();
+        SportClothes::query()->delete();
+
         // --- Servicios del gimnasio ---
         Service::insertOrIgnore([
             ['name' => 'Entrenamiento Personalizado', 'description' => 'Sesiones 1 a 1 con entrenador certificado.', 'price' => 80000],
             ['name' => 'Clases de Spinning', 'description' => 'Entrenamientos grupales de alta intensidad.', 'price' => 50000],
             ['name' => 'CrossFit', 'description' => 'Entrenamientos de fuerza y resistencia avanzada.', 'price' => 60000],
-        ]);
-
-        // --- Suplementos de ejemplo ---
-        Supplement::insertOrIgnore([
-            ['name' => 'Proteína Whey', 'category' => 'Proteína', 'price' => 150000, 'stock' => 20, 'description' => 'Ideal para recuperación muscular.', 'image' => null],
-            ['name' => 'Creatina Monohidratada', 'category' => 'Creatina', 'price' => 90000, 'stock' => 15, 'description' => 'Mejora fuerza y rendimiento.', 'image' => null],
-            ['name' => 'Pre Entreno Xtreme', 'category' => 'Pre-entreno', 'price' => 70000, 'stock' => 10, 'description' => 'Aumenta energía y concentración.', 'image' => null],
-        ]);
-
-        // --- Ropa deportiva de ejemplo ---
-        SportClothes::insertOrIgnore([
-            [
-                'product_name' => 'Camiseta Dry-Fit',
-                'gender' => 'Unisex',
-                'category' => 'Camisetas',
-                'image' => 'camiseta.jpg',
-                'description' => 'Tela transpirable y cómoda.',
-                'received' => 50,
-                'sold' => 10,
-                'stock' => 40,
-                'unit_price' => 60000,
-                'total_value' => 2400000,
-                'date' => now(),
-            ],
-            [
-                'product_name' => 'Leggins Deportivos',
-                'gender' => 'Femenino',
-                'category' => 'Leggins',
-                'image' => 'leggins.jpg',
-                'description' => 'Alta elasticidad y confort.',
-                'received' => 30,
-                'sold' => 5,
-                'stock' => 25,
-                'unit_price' => 85000,
-                'total_value' => 2125000,
-                'date' => now(),
-            ],
-            [
-                'product_name' => 'Pantaloneta Gym',
-                'gender' => 'Masculino',
-                'category' => 'Pantalonetas',
-                'image' => 'pantaloneta.jpg',
-                'description' => 'Ligera y resistente.',
-                'received' => 40,
-                'sold' => 8,
-                'stock' => 32,
-                'unit_price' => 70000,
-                'total_value' => 2240000,
-                'date' => now(),
-            ],
         ]);
 
         // --- Productos de cafetería ---
