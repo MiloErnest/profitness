@@ -16,15 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // --- Verificar si el admin ya existe ---
-        if (!User::where('email', 'admin@fitness.com')->exists()) {
-            User::create([
+        // Admin por defecto (PostgreSQL prod no tiene usuarios de SQLite local).
+        // Contraseña en texto plano: el modelo User aplica cast 'hashed' (no usar bcrypt aquí).
+        User::updateOrCreate(
+            ['email' => 'admin@fitness.com'],
+            [
                 'name' => 'Administrador',
-                'email' => 'admin@fitness.com',
-                'password' => bcrypt('12345678'),
+                'password' => '12345678',
                 'role' => 'admin',
-            ]);
-        }
+            ]
+        );
 
         // --- Servicios del gimnasio ---
         Service::insertOrIgnore([
@@ -35,9 +36,9 @@ class DatabaseSeeder extends Seeder
 
         // --- Suplementos de ejemplo ---
         Supplement::insertOrIgnore([
-            ['name' => 'Proteína Whey', 'category' => 'Proteína', 'price' => 150000, 'stock' => 20, 'description' => 'Ideal para recuperación muscular.', 'image' => 'whey.jpg'],
-            ['name' => 'Creatina Monohidratada', 'category' => 'Creatina', 'price' => 90000, 'stock' => 15, 'description' => 'Mejora fuerza y rendimiento.', 'image' => 'creatina.jpg'],
-            ['name' => 'Pre Entreno Xtreme', 'category' => 'Pre-entreno', 'price' => 70000, 'stock' => 10, 'description' => 'Aumenta energía y concentración.', 'image' => 'preentreno.jpg'],
+            ['name' => 'Proteína Whey', 'category' => 'Proteína', 'price' => 150000, 'stock' => 20, 'description' => 'Ideal para recuperación muscular.', 'image' => null],
+            ['name' => 'Creatina Monohidratada', 'category' => 'Creatina', 'price' => 90000, 'stock' => 15, 'description' => 'Mejora fuerza y rendimiento.', 'image' => null],
+            ['name' => 'Pre Entreno Xtreme', 'category' => 'Pre-entreno', 'price' => 70000, 'stock' => 10, 'description' => 'Aumenta energía y concentración.', 'image' => null],
         ]);
 
         // --- Ropa deportiva de ejemplo ---

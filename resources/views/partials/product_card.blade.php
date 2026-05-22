@@ -1,7 +1,7 @@
 <div class="group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden border border-gray-100">
     <!-- Imagen del producto -->
     <div class="relative w-full h-56 overflow-hidden">
-        <img src="{{ asset('images/' . $item['img']) }}"
+        <img src="{{ asset('imagenes/' . $item['img']) }}"
              alt="{{ $item['name'] }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
 

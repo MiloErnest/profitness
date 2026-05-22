@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'profitness - Transforma tu Cuerpo, Transforma tu Vida')</title>
-    <link rel="icon" type="image/png" href="{{ asset('Imagenes/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('imagenes/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -101,7 +101,7 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <div class="flex items-center space-x-3">
-                    <img src="{{ asset('Imagenes/logo.png') }}" alt="ProFitness Logo" class="w-12 h-12 rounded-lg object-cover">
+                    <img src="{{ asset('imagenes/logo.png') }}" alt="ProFitness Logo" class="w-12 h-12 rounded-lg object-cover">
                     <div>
                         <span class="text-2xl font-bold text-red-600">pro</span>
                         <span class="text-2xl font-bold text-gray-800">fitness</span>
@@ -183,7 +183,7 @@
                 <!-- Logo y Descripción -->
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center space-x-3 mb-4">
-                        <img src="{{ asset('Imagenes/logo.png') }}" alt="ProFitness Logo" class="w-14 h-14 rounded-lg object-cover">
+                        <img src="{{ asset('imagenes/logo.png') }}" alt="ProFitness Logo" class="w-14 h-14 rounded-lg object-cover">
                         <div>
                             <span class="text-2xl font-bold text-red-500">pro</span>
                             <span class="text-2xl font-bold text-white">fitness</span>
