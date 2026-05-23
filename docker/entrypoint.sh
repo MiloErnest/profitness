@@ -114,8 +114,13 @@ php artisan config:cache
 
 if [ -n "${RUN_MIGRATIONS:-true}" ] && [ "${RUN_MIGRATIONS}" != "false" ]; then
     php artisan migrate --force
-    php artisan db:seed --force
 fi
+
+case "${RUN_DB_SEED:-true}" in
+    true|1|yes|YES)
+        php artisan db:seed --force
+        ;;
+esac
 
 php artisan route:cache
 php artisan view:cache

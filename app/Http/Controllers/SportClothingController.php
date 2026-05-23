@@ -194,15 +194,16 @@ class SportClothingController extends Controller
     public function destroy($id)
     {
         $product = SportClothes::findOrFail($id);
-        
+
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
 
-        // Eliminar también del inventario
+        SportClothesMonthlyReport::where('sport_clothes_id', $product->id)->delete();
+
         Inventory::where('product_type', 'clothing')
-                 ->where('product_id', $product->id)
-                 ->delete();
+            ->where('product_id', $product->id)
+            ->delete();
 
         $product->delete();
 

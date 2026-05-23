@@ -56,6 +56,7 @@ Route::prefix('admin/supplements')->name('supplements.')->middleware(['auth', 'a
     Route::get('/{id}/editar', [SupplementController::class, 'edit'])->name('edit');
     Route::put('/{id}', [SupplementController::class, 'update'])->name('update');
     Route::delete('/{id}', [SupplementController::class, 'destroy'])->name('destroy');
+    Route::post('/{id}/eliminar', [SupplementController::class, 'destroy'])->name('destroy.post');
 });
 
 // Ropa Deportiva - Panel Administrativo (CRUD) - PROTEGIDO
@@ -71,6 +72,7 @@ Route::prefix('admin/sport-clothes')->name('sport_clothes.')->middleware(['auth'
     Route::get('/{id}/editar', [SportClothingController::class, 'edit'])->name('edit');
     Route::put('/{id}', [SportClothingController::class, 'update'])->name('update');
     Route::delete('/{id}', [SportClothingController::class, 'destroy'])->name('destroy');
+    Route::post('/{id}/eliminar', [SportClothingController::class, 'destroy'])->name('destroy.post');
 });
 
 // Entrenadores - Panel Administrativo (CRUD) - PROTEGIDO

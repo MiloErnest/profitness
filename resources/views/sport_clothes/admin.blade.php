@@ -179,12 +179,11 @@
                                            title="Editar">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('sport_clothes.destroy', $product->id) }}" 
+                                        <form action="{{ route('sport_clothes.destroy.post', $product->id) }}" 
                                               method="POST" 
                                               class="inline"
                                               onsubmit="return confirm('¿Estás seguro de eliminar este producto?')">
                                             @csrf
-                                            @method('DELETE')
                                             <button type="submit" 
                                                     class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition duration-300"
                                                     title="Eliminar">

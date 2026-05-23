@@ -166,15 +166,16 @@ class SupplementController extends Controller
     public function destroy($id)
     {
         $supplement = Supplement::findOrFail($id);
-        
+
         if ($supplement->image) {
             Storage::disk('public')->delete($supplement->image);
         }
 
-        // Eliminar también del inventario
+        SupplementMonthlyReport::where('supplement_id', $supplement->id)->delete();
+
         Inventory::where('product_type', 'supplement')
-                 ->where('product_id', $supplement->id)
-                 ->delete();
+            ->where('product_id', $supplement->id)
+            ->delete();
 
         $supplement->delete();
 

@@ -5,12 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Service;
-use App\Models\Supplement;
-use App\Models\SportClothes;
 use App\Models\CafeteriaSale;
-use App\Models\Inventory;
-use App\Models\SupplementMonthlyReport;
-use App\Models\SportClothesMonthlyReport;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,12 +25,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Catálogos vacíos: suplementos y ropa solo desde panel admin.
-        SupplementMonthlyReport::query()->delete();
-        SportClothesMonthlyReport::query()->delete();
-        Inventory::whereIn('product_type', ['supplement', 'clothing'])->delete();
-        Supplement::query()->delete();
-        SportClothes::query()->delete();
+        // Suplementos y ropa: solo desde el panel admin (no borrar ni reinsertar en cada deploy).
 
         // --- Servicios del gimnasio ---
         Service::insertOrIgnore([

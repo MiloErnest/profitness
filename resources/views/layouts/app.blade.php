@@ -154,12 +154,17 @@
                                 <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                             </a>
                         @else
-                            <form action="{{ route('logout') }}" method="POST" class="inline">
-                                @csrf
-                                <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300 font-semibold">
-                                    <i class="fas fa-sign-out-alt mr-2"></i>Cerrar Sesión
-                                </button>
-                            </form>
+                            <div class="flex items-center gap-2">
+                                <a href="{{ route('user.dashboard') }}" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300 font-semibold">
+                                    <i class="fas fa-user-circle mr-2"></i>Volver a mi panel
+                                </a>
+                                <form action="{{ route('logout') }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300 font-semibold">
+                                        <i class="fas fa-sign-out-alt mr-2"></i>Cerrar Sesión
+                                    </button>
+                                </form>
+                            </div>
                         @endif
                     @else
                         <a href="{{ route('login') }}" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300 font-semibold">
