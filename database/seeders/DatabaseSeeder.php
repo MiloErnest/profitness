@@ -34,11 +34,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'CrossFit', 'description' => 'Entrenamientos de fuerza y resistencia avanzada.', 'price' => 60000],
         ]);
 
-        // --- Productos de cafetería ---
-        CafeteriaSale::insertOrIgnore([
-            ['product_name' => 'Batido Proteico', 'category' => 'Bebida', 'price' => 12000, 'stock' => 30, 'description' => 'Hecho con proteína whey y fruta natural.', 'image' => 'batido.jpg'],
-            ['product_name' => 'Barra Energética', 'category' => 'Snack', 'price' => 5000, 'stock' => 50, 'description' => 'Ideal para antes o después del entrenamiento.', 'image' => 'barra.jpg'],
-            ['product_name' => 'Café Fitness', 'category' => 'Bebida', 'price' => 8000, 'stock' => 40, 'description' => 'Café bajo en calorías y alto en energía.', 'image' => 'cafe.jpg'],
-        ]);
+        // --- Productos de cafetería, suplementos y ropa: solo desde el panel admin ---
     }
 }
